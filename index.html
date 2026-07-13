@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Olen | Business Lunch</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="logo">Olen</h1>
+        <p class="subtitle">Business Lunch Selector</p>
+      </header>
+
+      <form class="grid" id="main-form">
+        <div class="block">
+          <div class="block-header">
+            <h2 class="block-title">🥗 Салаты</h2>
+            <button
+              type="button"
+              id="add-salad"
+              class="add-btn"
+              title="Add salad option"
+            >
+              +
+            </button>
+          </div>
+          <div class="inputs" id="salad-inputs"></div>
+        </div>
+
+        <div class="block">
+          <div class="block-header">
+            <h2 class="block-title">🍲 Первое</h2>
+            <button
+              type="button"
+              id="add-first"
+              class="add-btn"
+              title="Add first course option"
+            >
+              +
+            </button>
+          </div>
+          <div class="inputs" id="first-inputs"></div>
+        </div>
+
+        <div class="block">
+          <div class="block-header">
+            <h2 class="block-title">🍖 Второе</h2>
+            <button
+              type="button"
+              id="add-second"
+              class="add-btn"
+              title="Add second course option"
+            >
+              +
+            </button>
+          </div>
+          <div class="inputs" id="second-inputs"></div>
+        </div>
+
+        <button type="button" class="btn calculate-btn" id="calculate">
+          <span class="btn-text">Рассчитать</span>
+          <span class="btn-icon"></span>
+        </button>
+      </form>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
