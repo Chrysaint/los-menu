@@ -29,6 +29,7 @@ body {
     0 20px 60px rgba(0, 0, 0, 0.8),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   border: 1px solid #3d2b22;
+  position: relative;
 }
 
 /* ===== Header ===== */
@@ -37,6 +38,49 @@ body {
   margin-bottom: 40px;
   padding-bottom: 30px;
   border-bottom: 2px solid #3d2b22;
+  position: relative;
+}
+
+/* ===== НАВИГАЦИЯ ===== */
+.nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  background: #1f1611;
+  padding: 6px 8px;
+  border-radius: 12px;
+  border: 1px solid #3d2b22;
+  z-index: 10;
+}
+
+.nav-link {
+  padding: 6px 16px;
+  background: transparent;
+  border: 1px solid #3d2b22;
+  border-radius: 8px;
+  color: #8b7355;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.nav-link:hover {
+  background: #3d2b22;
+  color: #f0d5b0;
+  border-color: #d4a373;
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  background: #3d2b22;
+  color: #d4a373;
+  border-color: #d4a373;
+  box-shadow: 0 2px 12px rgba(212, 163, 115, 0.15);
 }
 
 .logo {
@@ -68,7 +112,45 @@ body {
   font-weight: 300;
 }
 
-/* ===== Grid ===== */
+/* ===== Адаптив для навигации ===== */
+@media (max-width: 650px) {
+  .nav {
+    position: relative;
+    margin-top: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header {
+    padding-bottom: 0;
+  }
+
+  .nav-link {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .nav-link {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+  .logo-text {
+    font-size: 32px;
+  }
+  .logo-img {
+    width: 70px;
+  }
+}
+
+/* ===== Остальные стили (без изменений) ===== */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -83,7 +165,6 @@ body {
   }
 }
 
-/* ===== Blocks ===== */
 .block {
   background: #1f1611;
   border-radius: 16px;
@@ -112,7 +193,6 @@ body {
   text-transform: uppercase;
 }
 
-/* ===== Add Button ===== */
 .add-btn {
   width: 32px;
   height: 32px;
@@ -141,7 +221,6 @@ body {
   transform: rotate(90deg) scale(0.95);
 }
 
-/* ===== Inputs Container ===== */
 .inputs {
   display: flex;
   flex-direction: column;
@@ -149,7 +228,6 @@ body {
   min-height: 60px;
 }
 
-/* ===== Select Elements ===== */
 .menu-select {
   width: 100%;
   padding: 12px 16px;
@@ -203,7 +281,6 @@ body {
   background: #5a3f30;
 }
 
-/* ===== Calculate Button ===== */
 .calculate-btn {
   grid-column: 1 / -1;
   padding: 18px 40px;
@@ -273,7 +350,6 @@ body {
   transform: rotate(15deg) scale(1.2);
 }
 
-/* ===== Results ===== */
 .results {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -357,7 +433,6 @@ body {
   transform: scale(1);
 }
 
-/* ===== Placeholder state for results ===== */
 .results__item:not(.active) .item-image-wrapper {
   opacity: 0.3;
 }
@@ -366,7 +441,6 @@ body {
   color: #5a4a3a;
 }
 
-/* ===== Animations ===== */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -392,7 +466,6 @@ body {
   animation-delay: 0.3s;
 }
 
-/* ===== Scrollbar ===== */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -410,7 +483,6 @@ body {
   background: #5a3f30;
 }
 
-/* ===== Select transition when added ===== */
 .menu-select {
   animation: slideDown 0.3s ease forwards;
 }
@@ -426,12 +498,10 @@ body {
   }
 }
 
-/* ===== Empty state for inputs ===== */
 .inputs:empty {
   min-height: 40px;
 }
 
-/* ===== Glow effect for active results ===== */
 @keyframes glowPulse {
   0%,
   100% {
@@ -447,7 +517,7 @@ body {
     fadeInUp 0.5s ease forwards,
     glowPulse 3s ease-in-out infinite 0.6s;
 }
-/* ===== Modal (компактная версия) ===== */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -619,7 +689,6 @@ body {
   transform: translateY(0px) scale(0.98);
 }
 
-/* Стили для скролла в модалке */
 .modal-content::-webkit-scrollbar {
   width: 4px;
 }

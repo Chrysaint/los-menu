@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Пивная рулетка CS2</title>
+    <style>
+      /* ===== Сброс и темная база ===== */
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        background: #1a1410;
+        font-family:
+          "Segoe UI",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1100px;
+        background: #2c1f18;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.8),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        border: 1px solid #3d2b22;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        min-height: 650px;
+      }
+
+      /* ===== Заголовок с навигацией ===== */
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #3d2b22;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* ===== НАВИГАЦИЯ ===== */
+      .nav {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        gap: 8px;
+        background: #1f1611;
+        padding: 6px 8px;
+        border-radius: 12px;
+        border: 1px solid #3d2b22;
+        z-index: 3;
+      }
+
+      .nav-link {
+        padding: 6px 16px;
+        background: transparent;
+        border: 1px solid #3d2b22;
+        border-radius: 8px;
+        color: #8b7355;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .nav-link:hover {
+        background: #3d2b22;
+        color: #f0d5b0;
+        border-color: #d4a373;
+        transform: translateY(-1px);
+      }
+
+      .nav-link.active {
+        background: #3d2b22;
+        color: #d4a373;
+        border-color: #d4a373;
+        box-shadow: 0 2px 12px rgba(212, 163, 115, 0.15);
+      }
+
+      .logo-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .logo-image {
+        max-width: 80px;
+        display: block;
+        aspect-ratio: 1;
+      }
+
+      .logo-text {
+        font-size: 36px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        color: #d4a373;
+        text-shadow: 0 2px 8px rgba(212, 163, 115, 0.3);
+        margin-bottom: 4px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        color: #8b7355;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-weight: 300;
+      }
+
+      /* ===== Адаптив для навигации ===== */
+      @media (max-width: 650px) {
+        .nav {
+          position: relative;
+          margin-top: 12px;
+          width: 100%;
+          justify-content: center;
+        }
+
+        .header {
+          padding-bottom: 0;
+        }
+
+        .nav-link {
+          flex: 1;
+          text-align: center;
+          font-size: 12px;
+          padding: 6px 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .nav {
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+        .nav-link {
+          font-size: 11px;
+          padding: 4px 10px;
+        }
+        .logo-text {
+          font-size: 28px;
+        }
+        .logo-image {
+          max-width: 60px;
+        }
+      }
+
+      /* ===== Остальные стили (без изменений) ===== */
+      .grid-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 2;
+        transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .grid-wrapper.hidden {
+        opacity: 0;
+        transform: scale(0.8) translateY(-30px);
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 80px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 14px;
+        max-width: 90%;
+        width: 100%;
+      }
+
+      @media (max-width: 750px) {
+        .grid {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
+        }
+      }
+
+      .card {
+        background: #1f1611;
+        border-radius: 12px;
+        border: 1px solid #3d2b22;
+        padding: 6px 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transition: all 0.2s ease;
+        aspect-ratio: 1 / 1;
+        min-width: 100px;
+        width: 100%;
+        cursor: default;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .card:hover {
+        border-color: #5a3f30;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      }
+
+      .card .card-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #d4a373;
+        line-height: 1.2;
+        letter-spacing: 0.3px;
+        line-break: auto;
+        max-width: 100%;
+        padding: 0 2px;
+      }
+
+      .card .card-price {
+        max-width: 70px;
+        width: 100%;
+        font-size: 12px;
+        color: #8b7355;
+        font-weight: 500;
+        margin-top: 24px;
+        background: #120d0a;
+        padding: 1px 6px;
+        border-radius: 20px;
+        border: 1px solid #2c1f18;
+      }
+
+      .btn-container {
+        display: flex;
+        justify-content: center;
+        margin: 6px 0 12px;
+        position: relative;
+        z-index: 2;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .btn-container.hidden {
+        opacity: 0;
+        transform: translateY(30px);
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 60px;
+      }
+
+      .btn-spin {
+        padding: 14px 48px;
+        background: linear-gradient(135deg, #3d2b22, #2c1f18);
+        border: 2px solid #d4a373;
+        border-radius: 14px;
+        color: #d4a373;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 4px 0 #1a1410;
+      }
+
+      .btn-spin:hover {
+        background: linear-gradient(135deg, #5a3f30, #3d2b22);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(212, 163, 115, 0.2);
+        border-color: #f0d5b0;
+        color: #f0d5b0;
+      }
+
+      .btn-spin:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 #1a1410;
+      }
+
+      .btn-spin:disabled {
+        opacity: 0.5;
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 #1a1410;
+        pointer-events: none;
+      }
+
+      .slot-machine {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, 120%);
+        width: calc(100% - 60px);
+        max-width: 850px;
+        background: #1f1611;
+        border-radius: 50px;
+        padding: 30px 28px;
+        border: 2px solid #3d2b22;
+        box-shadow:
+          inset 0 4px 12px rgba(0, 0, 0, 0.6),
+          0 20px 60px rgba(0, 0, 0, 0.8);
+        opacity: 0;
+        transition: all 1.5s cubic-bezier(0.34, 1.2, 0.64, 1) 400ms;
+        z-index: 1;
+      }
+
+      .slot-machine.active {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+      }
+
+      .reel-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      .pointer {
+        position: absolute;
+        top: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        width: 0;
+        height: 0;
+        border-left: 18px solid transparent;
+        border-right: 18px solid transparent;
+        border-top: 28px solid #d4a373;
+        filter: drop-shadow(0 0 12px rgba(212, 163, 115, 0.6));
+        pointer-events: none;
+      }
+
+      .pointer::after {
+        content: "";
+        position: absolute;
+        top: -34px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 12px;
+        height: 12px;
+        background: radial-gradient(circle, #f0d5b0 30%, #d4a373 100%);
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(212, 163, 115, 0.8);
+      }
+
+      .pointer-bottom {
+        position: absolute;
+        bottom: -18px;
+        left: 50%;
+        transform: translateX(-50%) rotate(180deg);
+        z-index: 10;
+        width: 0;
+        height: 0;
+        border-left: 18px solid transparent;
+        border-right: 18px solid transparent;
+        border-top: 28px solid #d4a373;
+        filter: drop-shadow(0 0 12px rgba(212, 163, 115, 0.6));
+        pointer-events: none;
+        opacity: 0.6;
+      }
+
+      .reel {
+        background: #120d0a;
+        padding: 18px 20px;
+        border-radius: 30px;
+        box-shadow:
+          0 8px 0 #2c1f18,
+          0 10px 40px rgba(0, 0, 0, 0.6);
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        height: 160px;
+        display: flex;
+        align-items: center;
+        border: 2px solid #3d2b22;
+      }
+
+      .reel-track {
+        display: flex;
+        gap: 20px;
+        will-change: transform;
+        transition: none;
+        padding: 0 6px;
+      }
+
+      .reel-item {
+        background: #2c1f18;
+        border-radius: 20px;
+        border: 2px solid #3d2b22;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 1 / 1;
+        min-width: 120px;
+        width: 120px;
+        padding: 12px 10px;
+        text-align: center;
+        box-shadow:
+          inset 0 0 0 1px #3d2b22,
+          0 4px 16px rgba(0, 0, 0, 0.4);
+        flex-shrink: 0;
+        transition: border-color 0.3s ease;
+      }
+
+      .reel-item .reel-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #d4a373;
+        line-height: 1.2;
+        word-break: break-word;
+        max-width: 100%;
+      }
+
+      .reel-item .reel-volume {
+        font-size: 11px;
+        color: #8b7355;
+        margin-top: 4px;
+      }
+
+      .reel-item .reel-price {
+        font-size: 13px;
+        font-weight: 600;
+        color: #f0d5b0;
+        margin-top: 4px;
+        background: #120d0a;
+        padding: 3px 12px;
+        border-radius: 20px;
+        border: 1px solid #2c1f18;
+      }
+
+      .reel-item.winner {
+        border-color: #f0d5b0;
+        box-shadow:
+          0 0 30px rgba(212, 163, 115, 0.4),
+          inset 0 0 30px rgba(212, 163, 115, 0.1);
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+      }
+
+      .reel-item.winner .reel-name {
+        color: #f0d5b0;
+      }
+
+      .reel-item.winner .reel-price {
+        background: #d4a373;
+        color: #1a1410;
+        border-color: #f0d5b0;
+      }
+
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        padding: 16px;
+      }
+
+      .modal-overlay.open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-content {
+        background: linear-gradient(145deg, #2c1f18, #1f1611);
+        border: 2px solid #d4a373;
+        border-radius: 20px;
+        padding: 32px 28px 28px;
+        max-width: 400px;
+        width: 100%;
+        transform: scale(0.9) translateY(20px);
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+        text-align: center;
+      }
+
+      .modal-overlay.open .modal-content {
+        transform: scale(1) translateY(0);
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #3d2b22;
+      }
+
+      .modal-header h2 {
+        color: #d4a373;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin: 0;
+      }
+
+      .modal-close {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 2px solid #3d2b22;
+        background: transparent;
+        color: #d4a373;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+
+      .modal-close:hover {
+        background: #3d2b22;
+        color: #f0d5b0;
+        transform: translateY(-50%) rotate(90deg);
+        border-color: #d4a373;
+      }
+
+      .modal-winner {
+        background: #1a1410;
+        border-radius: 16px;
+        padding: 24px 20px 20px;
+        border: 1px solid #3d2b22;
+        margin-bottom: 24px;
+      }
+
+      .modal-winner-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: #f0d5b0;
+        line-height: 1.3;
+        margin-bottom: 16px;
+        letter-spacing: 0.5px;
+        word-break: break-word;
+      }
+
+      .modal-winner-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        padding-top: 16px;
+        border-top: 1px solid #2c1f18;
+      }
+
+      .modal-winner-volume {
+        font-size: 16px;
+        font-weight: 500;
+        color: #8b7355;
+        letter-spacing: 0.5px;
+      }
+
+      .modal-winner-price {
+        font-size: 20px;
+        font-weight: 700;
+        color: #d4a373;
+        background: #120d0a;
+        padding: 4px 20px;
+        border-radius: 30px;
+        border: 1px solid #3d2b22;
+      }
+
+      .modal-btn {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #3d2b22, #2c1f18);
+        border: 2px solid #d4a373;
+        border-radius: 12px;
+        color: #d4a373;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+      }
+
+      .modal-btn:hover {
+        background: linear-gradient(135deg, #5a3f30, #3d2b22);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(212, 163, 115, 0.2);
+        border-color: #f0d5b0;
+        color: #f0d5b0;
+      }
+
+      .modal-btn:active {
+        transform: translateY(0px) scale(0.98);
+      }
+
+      @media (max-width: 850px) {
+        .slot-machine {
+          width: calc(100% - 40px);
+          padding: 20px 16px;
+        }
+        .reel {
+          height: 130px;
+          padding: 12px 14px;
+        }
+        .reel-item {
+          min-width: 90px;
+          width: 90px;
+          padding: 8px 6px;
+        }
+        .reel-item .reel-name {
+          font-size: 11px;
+        }
+        .reel-item .reel-price {
+          font-size: 11px;
+        }
+        .reel-item .reel-volume {
+          font-size: 10px;
+        }
+        .pointer {
+          top: -14px;
+          border-left-width: 14px;
+          border-right-width: 14px;
+          border-top-width: 22px;
+        }
+        .pointer::after {
+          top: -28px;
+          width: 10px;
+          height: 10px;
+        }
+        .pointer-bottom {
+          bottom: -14px;
+          border-left-width: 14px;
+          border-right-width: 14px;
+          border-top-width: 22px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 20px;
+          min-height: 500px;
+        }
+        .logo-text {
+          font-size: 28px;
+        }
+        .logo-image {
+          max-width: 60px;
+        }
+        .btn-spin {
+          padding: 12px 28px;
+          font-size: 16px;
+        }
+        .slot-machine {
+          width: calc(100% - 20px);
+          padding: 14px 10px;
+          border-radius: 30px;
+        }
+        .reel {
+          height: 100px;
+          padding: 8px 10px;
+          border-radius: 20px;
+        }
+        .reel-item {
+          min-width: 70px;
+          width: 70px;
+          border-radius: 14px;
+          padding: 6px 4px;
+        }
+        .reel-item .reel-name {
+          font-size: 9px;
+        }
+        .reel-item .reel-price {
+          font-size: 9px;
+          padding: 2px 8px;
+        }
+        .reel-item .reel-volume {
+          font-size: 8px;
+        }
+        .pointer {
+          top: -10px;
+          border-left-width: 10px;
+          border-right-width: 10px;
+          border-top-width: 16px;
+        }
+        .pointer::after {
+          top: -20px;
+          width: 8px;
+          height: 8px;
+        }
+        .pointer-bottom {
+          bottom: -10px;
+          border-left-width: 10px;
+          border-right-width: 10px;
+          border-top-width: 16px;
+        }
+        .modal-content {
+          padding: 20px 16px;
+        }
+        .modal-winner-name {
+          font-size: 17px;
+        }
+        .modal-winner-price {
+          font-size: 17px;
+          padding: 3px 16px;
+        }
+        .modal-winner-volume {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="mainContainer">
+      <!-- Заголовок -->
+      <div class="header">
+        <!-- ===== НАВИГАЦИЯ ===== -->
+        <nav class="nav">
+          <a href="./index.html" class="nav-link">Обед</a>
+          <a href="./pivo.html" class="nav-link active">Пиво</a>
+        </nav>
+
+        <div class="logo-wrapper">
+          <img src="./assets/logo.png" alt="" srcset="" class="logo-image" />
+          <div class="logo-text">ПИВО-РАНДОМАЙЗЕР</div>
+        </div>
+        <div class="subtitle">Нажми, чтобы открыть</div>
+      </div>
+
+      <!-- ГРИД с карточками -->
+      <div class="grid-wrapper" id="gridWrapper">
+        <div class="grid" id="gridContainer"></div>
+      </div>
+
+      <!-- Кнопка под гридой -->
+      <div class="btn-container" id="btnContainer">
+        <button class="btn-spin" id="spinBtn">
+          <span class="btn-text">Открыть кейс</span>
+        </button>
+      </div>
+
+      <!-- Барабан с указателями -->
+      <div class="slot-machine" id="slotMachine">
+        <div class="reel-wrapper">
+          <div class="pointer"></div>
+          <div class="pointer-bottom"></div>
+          <div class="reel" id="reelContainer">
+            <div class="reel-track" id="reelTrack"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Модальное окно -->
+      <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>ВЫПАЛО</h2>
+            <button class="modal-close" id="modalCloseBtn">✕</button>
+          </div>
+          <div class="modal-winner">
+            <div class="modal-winner-name" id="modalName">Название</div>
+            <div class="modal-winner-details">
+              <span class="modal-winner-volume" id="modalVolume">0.0 л</span>
+              <span class="modal-winner-price" id="modalPrice">0 ₽</span>
+            </div>
+          </div>
+          <button class="modal-btn" id="modalActionBtn">Закрыть</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const items = [
+          {
+            name: "Ice cream porter chocolate",
+            volume: "0,45 л",
+            price: "420₽",
+          },
+          {
+            name: "Ice cream porter hazelnut",
+            volume: "0,45 л",
+            price: "420₽",
+          },
+          {
+            name: "Ice cream porter plombier",
+            volume: "0,45 л",
+            price: "420₽",
+          },
+          { name: "Кокосовый портер", volume: "0,5 л", price: "440₽" },
+          { name: "Томатный газе", volume: "0,5 л", price: "440₽" },
+          { name: "Медовуха", volume: "0,75 л", price: "850₽" },
+          { name: "Сидр", volume: "0,75 л", price: "850₽" },
+          { name: "Новинки крафта", volume: "—", price: "460₽" },
+          { name: "Леший", volume: "0,5 л", price: "440₽" },
+          { name: "Атомная прачечная", volume: "0,5 л", price: "450₽" },
+          { name: "Овсяный стаут", volume: "0,5 л", price: "440₽" },
+          { name: "Grapefruit DIPA", volume: "0,5 л", price: "440₽" },
+          { name: "Сумасшедший лось", volume: "0,5 л", price: "440₽" },
+          { name: "Хефевайцен банан", volume: "0,45 л", price: "390₽" },
+          { name: "Ягодный эль Konix", volume: "0,45 л", price: "390₽" },
+          { name: "Просто лось", volume: "0,45 л", price: "310₽" },
+        ];
+
+        const gridWrapper = document.getElementById("gridWrapper");
+        const grid = document.getElementById("gridContainer");
+        const btnContainer = document.getElementById("btnContainer");
+        const spinBtn = document.getElementById("spinBtn");
+        const slotMachine = document.getElementById("slotMachine");
+        const reelTrack = document.getElementById("reelTrack");
+        const reelContainer = document.getElementById("reelContainer");
+        const modalOverlay = document.getElementById("modalOverlay");
+        const modalName = document.getElementById("modalName");
+        const modalVolume = document.getElementById("modalVolume");
+        const modalPrice = document.getElementById("modalPrice");
+        const modalCloseBtn = document.getElementById("modalCloseBtn");
+        const modalActionBtn = document.getElementById("modalActionBtn");
+
+        let isSpinning = false;
+        let spinTimeout = null;
+
+        function renderGrid() {
+          grid.innerHTML = "";
+          items.forEach((item) => {
+            const card = document.createElement("div");
+            card.className = "card";
+            const shortName =
+              item.name.length > 18 ? item.name.slice(0, 16) + "…" : item.name;
+            card.innerHTML = `
+              <div class="card-name">${shortName}</div>
+              <div class="card-price">${item.price}</div>
+            `;
+            grid.appendChild(card);
+          });
+        }
+        renderGrid();
+
+        function createInfiniteTrack(targetItem) {
+          const itemsPerSet = items.length;
+          const totalItems = [];
+
+          for (let s = 0; s < 3; s++) {
+            for (let i = 0; i < itemsPerSet; i++) {
+              totalItems.push(items[i]);
+            }
+          }
+
+          const insertPosition =
+            totalItems.length - itemsPerSet + Math.floor(itemsPerSet / 2);
+          totalItems.splice(insertPosition, 0, targetItem);
+
+          for (let i = 0; i < 5; i++) {
+            totalItems.push(items[Math.floor(Math.random() * items.length)]);
+          }
+
+          return totalItems;
+        }
+
+        function startSlot() {
+          if (isSpinning) return;
+
+          const targetIndex = Math.floor(Math.random() * items.length);
+          const picked = items[targetIndex];
+          const trackItems = createInfiniteTrack(picked);
+
+          reelTrack.innerHTML = trackItems
+            .map(
+              (item) => `
+            <div class="reel-item" data-name="${item.name}">
+              <div class="reel-name">${item.name.length > 14 ? item.name.slice(0, 12) + "…" : item.name}</div>
+              <div class="reel-volume">${item.volume}</div>
+              <div class="reel-price">${item.price}</div>
+            </div>
+          `,
+            )
+            .join("");
+
+          reelTrack.style.transition = "none";
+          reelTrack.style.transform = "translateX(0px)";
+
+          gridWrapper.classList.add("hidden");
+          btnContainer.classList.add("hidden");
+          slotMachine.classList.add("active");
+
+          setTimeout(() => {
+            const targetElementIndex = trackItems.findIndex(
+              (item) => item === picked,
+            );
+
+            const containerWidth = reelContainer.clientWidth;
+            const itemWidth = 120 + 20;
+            const targetPixelPosition = targetElementIndex * itemWidth;
+            const centerOffset = (containerWidth - 120) / 2;
+            let baseShift = targetPixelPosition - centerOffset;
+            const extraSpins = 3 + Math.floor(Math.random() * 3);
+            const totalShift =
+              baseShift + extraSpins * items.length * itemWidth;
+            const maxShift =
+              trackItems.length * itemWidth - containerWidth + 50;
+            const finalShift = Math.min(totalShift, maxShift);
+
+            isSpinning = true;
+            spinBtn.disabled = true;
+
+            reelTrack.style.transition =
+              "transform 5.5s cubic-bezier(0.22, 0.68, 0.35, 1.0)";
+            reelTrack.style.transform = `translateX(-${finalShift}px)`;
+
+            if (spinTimeout) clearTimeout(spinTimeout);
+            spinTimeout = setTimeout(() => {
+              const containerRect = reelContainer.getBoundingClientRect();
+              const centerX = containerRect.left + containerRect.width / 2;
+
+              const allItems = reelTrack.querySelectorAll(".reel-item");
+              let closestElement = null;
+              let closestDistance = Infinity;
+
+              allItems.forEach((el) => {
+                const elRect = el.getBoundingClientRect();
+                const elCenterX = elRect.left + elRect.width / 2;
+                const distance = Math.abs(elCenterX - centerX);
+
+                if (distance < closestDistance) {
+                  closestDistance = distance;
+                  closestElement = el;
+                }
+              });
+
+              if (closestElement) {
+                closestElement.classList.add("winner");
+                closestElement.scrollIntoView({
+                  behavior: "smooth",
+                  inline: "center",
+                  block: "nearest",
+                });
+
+                const nameEl = closestElement.querySelector(".reel-name");
+                const volumeEl = closestElement.querySelector(".reel-volume");
+                const priceEl = closestElement.querySelector(".reel-price");
+
+                if (nameEl && volumeEl && priceEl) {
+                  const winnerName = nameEl.textContent || "";
+                  let foundItem = null;
+                  for (let item of items) {
+                    const shortName =
+                      item.name.length > 14
+                        ? item.name.slice(0, 12) + "…"
+                        : item.name;
+                    if (
+                      shortName === winnerName ||
+                      item.name.includes(winnerName.replace("…", ""))
+                    ) {
+                      foundItem = item;
+                      break;
+                    }
+                  }
+
+                  if (foundItem) {
+                    showModal(foundItem);
+                  } else {
+                    showModal({
+                      name: winnerName,
+                      volume: volumeEl.textContent,
+                      price: priceEl.textContent,
+                    });
+                  }
+                } else {
+                  showModal(picked);
+                }
+              } else {
+                showModal(picked);
+              }
+
+              isSpinning = false;
+              spinBtn.disabled = false;
+              spinTimeout = null;
+            }, 5800);
+          }, 1500);
+        }
+
+        function showModal(item) {
+          modalName.textContent = item.name || item;
+          modalVolume.textContent = item.volume || "";
+          modalPrice.textContent = item.price || "";
+          modalOverlay.classList.add("open");
+        }
+
+        function closeModal() {
+          modalOverlay.classList.remove("open");
+          gridWrapper.classList.remove("hidden");
+          btnContainer.classList.remove("hidden");
+          slotMachine.classList.remove("active");
+          reelTrack.style.transition = "none";
+          reelTrack.style.transform = "translateX(0px)";
+          document
+            .querySelectorAll(".reel-item.winner")
+            .forEach((el) => el.classList.remove("winner"));
+          if (spinTimeout) {
+            clearTimeout(spinTimeout);
+            spinTimeout = null;
+          }
+          isSpinning = false;
+          spinBtn.disabled = false;
+        }
+
+        spinBtn.addEventListener("click", startSlot);
+
+        modalCloseBtn.addEventListener("click", closeModal);
+        modalActionBtn.addEventListener("click", closeModal);
+        modalOverlay.addEventListener("click", function (e) {
+          if (e.target === this) closeModal();
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && modalOverlay.classList.contains("open")) {
+            closeModal();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
