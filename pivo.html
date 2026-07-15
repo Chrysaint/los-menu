@@ -24,7 +24,7 @@
           -apple-system,
           BlinkMacSystemFont,
           sans-serif;
-        padding: 20px;
+        padding: 10px;
       }
 
       .container {
@@ -32,7 +32,7 @@
         max-width: 1100px;
         background: #2c1f18;
         border-radius: 24px;
-        padding: 40px;
+        padding: 20px;
         box-shadow:
           0 20px 60px rgba(0, 0, 0, 0.8),
           inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -40,14 +40,14 @@
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        min-height: 650px;
+        min-height: 100vh;
       }
 
       /* ===== Заголовок с навигацией ===== */
       .header {
         text-align: center;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
         border-bottom: 2px solid #3d2b22;
         position: relative;
         z-index: 2;
@@ -59,21 +59,21 @@
         top: 0;
         right: 0;
         display: flex;
-        gap: 8px;
+        gap: 6px;
         background: #1f1611;
-        padding: 6px 8px;
-        border-radius: 12px;
+        padding: 4px 6px;
+        border-radius: 10px;
         border: 1px solid #3d2b22;
         z-index: 3;
       }
 
       .nav-link {
-        padding: 6px 16px;
+        padding: 4px 12px;
         background: transparent;
         border: 1px solid #3d2b22;
-        border-radius: 8px;
+        border-radius: 6px;
         color: #8b7355;
-        font-size: 13px;
+        font-size: 11px;
         font-weight: 500;
         text-decoration: none;
         transition: all 0.3s ease;
@@ -85,7 +85,6 @@
         background: #3d2b22;
         color: #f0d5b0;
         border-color: #d4a373;
-        transform: translateY(-1px);
       }
 
       .nav-link.active {
@@ -99,28 +98,28 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 12px;
+        gap: 8px;
       }
 
       .logo-image {
-        max-width: 80px;
+        max-width: 50px;
         display: block;
         aspect-ratio: 1;
       }
 
       .logo-text {
-        font-size: 36px;
+        font-size: 24px;
         font-weight: 700;
-        letter-spacing: 4px;
+        letter-spacing: 2px;
         color: #d4a373;
         text-shadow: 0 2px 8px rgba(212, 163, 115, 0.3);
-        margin-bottom: 4px;
+        margin-bottom: 2px;
       }
 
       .subtitle {
-        font-size: 14px;
+        font-size: 11px;
         color: #8b7355;
-        letter-spacing: 4px;
+        letter-spacing: 3px;
         text-transform: uppercase;
         font-weight: 300;
       }
@@ -129,7 +128,7 @@
       @media (max-width: 650px) {
         .nav {
           position: relative;
-          margin-top: 12px;
+          margin-top: 10px;
           width: 100%;
           justify-content: center;
         }
@@ -141,36 +140,32 @@
         .nav-link {
           flex: 1;
           text-align: center;
-          font-size: 12px;
-          padding: 6px 12px;
+          font-size: 11px;
+          padding: 4px 10px;
         }
       }
 
       @media (max-width: 480px) {
-        .nav {
-          flex-wrap: wrap;
-          gap: 6px;
-        }
         .nav-link {
-          font-size: 11px;
-          padding: 4px 10px;
+          font-size: 10px;
+          padding: 3px 8px;
         }
         .logo-text {
-          font-size: 28px;
+          font-size: 20px;
         }
         .logo-image {
-          max-width: 60px;
+          max-width: 40px;
         }
       }
 
-      /* ===== Остальные стили (без изменений) ===== */
+      /* ===== ГРИД с карточками ===== */
       .grid-wrapper {
         display: flex;
         justify-content: center;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         position: relative;
         z-index: 2;
-        transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       .grid-wrapper.hidden {
@@ -180,22 +175,15 @@
         position: absolute;
         width: 100%;
         left: 0;
-        top: 80px;
+        top: 60px;
       }
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-        gap: 14px;
-        max-width: 90%;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+        max-width: 100%;
         width: 100%;
-      }
-
-      @media (max-width: 750px) {
-        .grid {
-          grid-template-columns: repeat(4, 1fr);
-          gap: 10px;
-        }
       }
 
       @media (max-width: 480px) {
@@ -207,9 +195,9 @@
 
       .card {
         background: #1f1611;
-        border-radius: 12px;
+        border-radius: 10px;
         border: 1px solid #3d2b22;
-        padding: 6px 4px;
+        padding: 8px 4px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -217,38 +205,32 @@
         text-align: center;
         transition: all 0.2s ease;
         aspect-ratio: 1 / 1;
-        min-width: 100px;
+        min-width: 80px;
         width: 100%;
         cursor: default;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
       }
 
-      .card:hover {
-        border-color: #5a3f30;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      }
-
       .card .card-name {
-        font-size: 14px;
+        font-size: 10px;
         font-weight: 600;
         color: #d4a373;
         line-height: 1.2;
-        letter-spacing: 0.3px;
-        line-break: auto;
+        letter-spacing: 0.2px;
         max-width: 100%;
         padding: 0 2px;
+        word-break: break-word;
       }
 
       .card .card-price {
-        max-width: 70px;
+        max-width: 60px;
         width: 100%;
-        font-size: 12px;
+        font-size: 10px;
         color: #8b7355;
         font-weight: 500;
-        margin-top: 24px;
+        margin-top: 8px;
         background: #120d0a;
-        padding: 1px 6px;
+        padding: 2px 6px;
         border-radius: 20px;
         border: 1px solid #2c1f18;
       }
@@ -256,7 +238,7 @@
       .btn-container {
         display: flex;
         justify-content: center;
-        margin: 6px 0 12px;
+        margin: 4px 0 8px;
         position: relative;
         z-index: 2;
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -269,25 +251,24 @@
         position: absolute;
         width: 100%;
         left: 0;
-        bottom: 60px;
+        bottom: 40px;
       }
 
       .btn-spin {
-        padding: 14px 48px;
+        padding: 12px 30px;
         background: linear-gradient(135deg, #3d2b22, #2c1f18);
         border: 2px solid #d4a373;
-        border-radius: 14px;
+        border-radius: 12px;
         color: #d4a373;
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 600;
-        letter-spacing: 3px;
+        letter-spacing: 2px;
         text-transform: uppercase;
         cursor: pointer;
         transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 14px;
         box-shadow: 0 4px 0 #1a1410;
+        width: 100%;
+        max-width: 300px;
       }
 
       .btn-spin:hover {
@@ -310,22 +291,23 @@
         pointer-events: none;
       }
 
+      /* ===== Барабан (рулетка) ===== */
       .slot-machine {
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, 120%);
-        width: calc(100% - 60px);
+        width: calc(100% - 30px);
         max-width: 850px;
         background: #1f1611;
-        border-radius: 50px;
-        padding: 30px 28px;
+        border-radius: 30px;
+        padding: 16px 14px;
         border: 2px solid #3d2b22;
         box-shadow:
           inset 0 4px 12px rgba(0, 0, 0, 0.6),
           0 20px 60px rgba(0, 0, 0, 0.8);
         opacity: 0;
-        transition: all 1.5s cubic-bezier(0.34, 1.2, 0.64, 1) 400ms;
+        transition: all 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
         z-index: 1;
       }
 
@@ -341,15 +323,15 @@
 
       .pointer {
         position: absolute;
-        top: -18px;
+        top: -12px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 10;
         width: 0;
         height: 0;
-        border-left: 18px solid transparent;
-        border-right: 18px solid transparent;
-        border-top: 28px solid #d4a373;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-top: 20px solid #d4a373;
         filter: drop-shadow(0 0 12px rgba(212, 163, 115, 0.6));
         pointer-events: none;
       }
@@ -357,11 +339,11 @@
       .pointer::after {
         content: "";
         position: absolute;
-        top: -34px;
+        top: -26px;
         left: 50%;
         transform: translateX(-50%);
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
         background: radial-gradient(circle, #f0d5b0 30%, #d4a373 100%);
         border-radius: 50%;
         box-shadow: 0 0 20px rgba(212, 163, 115, 0.8);
@@ -369,15 +351,15 @@
 
       .pointer-bottom {
         position: absolute;
-        bottom: -18px;
+        bottom: -12px;
         left: 50%;
         transform: translateX(-50%) rotate(180deg);
         z-index: 10;
         width: 0;
         height: 0;
-        border-left: 18px solid transparent;
-        border-right: 18px solid transparent;
-        border-top: 28px solid #d4a373;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-top: 20px solid #d4a373;
         filter: drop-shadow(0 0 12px rgba(212, 163, 115, 0.6));
         pointer-events: none;
         opacity: 0.6;
@@ -385,15 +367,15 @@
 
       .reel {
         background: #120d0a;
-        padding: 18px 20px;
-        border-radius: 30px;
+        padding: 10px 12px;
+        border-radius: 20px;
         box-shadow:
-          0 8px 0 #2c1f18,
+          0 6px 0 #2c1f18,
           0 10px 40px rgba(0, 0, 0, 0.6);
         width: 100%;
         overflow: hidden;
         position: relative;
-        height: 160px;
+        height: 100px;
         display: flex;
         align-items: center;
         border: 2px solid #3d2b22;
@@ -401,24 +383,24 @@
 
       .reel-track {
         display: flex;
-        gap: 20px;
+        gap: 12px;
         will-change: transform;
         transition: none;
-        padding: 0 6px;
+        padding: 0 4px;
       }
 
       .reel-item {
         background: #2c1f18;
-        border-radius: 20px;
+        border-radius: 14px;
         border: 2px solid #3d2b22;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         aspect-ratio: 1 / 1;
-        min-width: 120px;
-        width: 120px;
-        padding: 12px 10px;
+        min-width: 80px;
+        width: 80px;
+        padding: 8px 6px;
         text-align: center;
         box-shadow:
           inset 0 0 0 1px #3d2b22,
@@ -428,7 +410,7 @@
       }
 
       .reel-item .reel-name {
-        font-size: 13px;
+        font-size: 9px;
         font-weight: 600;
         color: #d4a373;
         line-height: 1.2;
@@ -437,19 +419,19 @@
       }
 
       .reel-item .reel-volume {
-        font-size: 11px;
+        font-size: 8px;
         color: #8b7355;
-        margin-top: 4px;
+        margin-top: 2px;
       }
 
       .reel-item .reel-price {
-        font-size: 13px;
+        font-size: 9px;
         font-weight: 600;
         color: #f0d5b0;
-        margin-top: 4px;
+        margin-top: 2px;
         background: #120d0a;
-        padding: 3px 12px;
-        border-radius: 20px;
+        padding: 2px 8px;
+        border-radius: 16px;
         border: 1px solid #2c1f18;
       }
 
@@ -499,8 +481,8 @@
         background: linear-gradient(145deg, #2c1f18, #1f1611);
         border: 2px solid #d4a373;
         border-radius: 20px;
-        padding: 32px 28px 28px;
-        max-width: 400px;
+        padding: 24px 20px 20px;
+        max-width: 360px;
         width: 100%;
         transform: scale(0.9) translateY(20px);
         transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -517,14 +499,14 @@
         justify-content: center;
         align-items: center;
         position: relative;
-        margin-bottom: 20px;
-        padding-bottom: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 10px;
         border-bottom: 2px solid #3d2b22;
       }
 
       .modal-header h2 {
         color: #d4a373;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
         letter-spacing: 1px;
         margin: 0;
@@ -535,13 +517,13 @@
         right: 0;
         top: 50%;
         transform: translateY(-50%);
-        width: 34px;
-        height: 34px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         border: 2px solid #3d2b22;
         background: transparent;
         color: #d4a373;
-        font-size: 24px;
+        font-size: 20px;
         cursor: pointer;
         transition: all 0.3s ease;
         display: flex;
@@ -560,18 +542,18 @@
 
       .modal-winner {
         background: #1a1410;
-        border-radius: 16px;
-        padding: 24px 20px 20px;
+        border-radius: 14px;
+        padding: 18px 16px 16px;
         border: 1px solid #3d2b22;
-        margin-bottom: 24px;
+        margin-bottom: 18px;
       }
 
       .modal-winner-name {
-        font-size: 20px;
+        font-size: 17px;
         font-weight: 700;
         color: #f0d5b0;
         line-height: 1.3;
-        margin-bottom: 16px;
+        margin-bottom: 12px;
         letter-spacing: 0.5px;
         word-break: break-word;
       }
@@ -580,38 +562,38 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 20px;
-        padding-top: 16px;
+        gap: 12px;
+        padding-top: 12px;
         border-top: 1px solid #2c1f18;
       }
 
       .modal-winner-volume {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 500;
         color: #8b7355;
         letter-spacing: 0.5px;
       }
 
       .modal-winner-price {
-        font-size: 20px;
+        font-size: 17px;
         font-weight: 700;
         color: #d4a373;
         background: #120d0a;
-        padding: 4px 20px;
-        border-radius: 30px;
+        padding: 3px 16px;
+        border-radius: 24px;
         border: 1px solid #3d2b22;
       }
 
       .modal-btn {
         width: 100%;
-        padding: 14px;
+        padding: 12px;
         background: linear-gradient(135deg, #3d2b22, #2c1f18);
         border: 2px solid #d4a373;
         border-radius: 12px;
         color: #d4a373;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
-        letter-spacing: 1.5px;
+        letter-spacing: 1px;
         cursor: pointer;
         transition: all 0.3s ease;
         text-transform: uppercase;
@@ -627,121 +609,6 @@
 
       .modal-btn:active {
         transform: translateY(0px) scale(0.98);
-      }
-
-      @media (max-width: 850px) {
-        .slot-machine {
-          width: calc(100% - 40px);
-          padding: 20px 16px;
-        }
-        .reel {
-          height: 130px;
-          padding: 12px 14px;
-        }
-        .reel-item {
-          min-width: 90px;
-          width: 90px;
-          padding: 8px 6px;
-        }
-        .reel-item .reel-name {
-          font-size: 11px;
-        }
-        .reel-item .reel-price {
-          font-size: 11px;
-        }
-        .reel-item .reel-volume {
-          font-size: 10px;
-        }
-        .pointer {
-          top: -14px;
-          border-left-width: 14px;
-          border-right-width: 14px;
-          border-top-width: 22px;
-        }
-        .pointer::after {
-          top: -28px;
-          width: 10px;
-          height: 10px;
-        }
-        .pointer-bottom {
-          bottom: -14px;
-          border-left-width: 14px;
-          border-right-width: 14px;
-          border-top-width: 22px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .container {
-          padding: 20px;
-          min-height: 500px;
-        }
-        .logo-text {
-          font-size: 28px;
-        }
-        .logo-image {
-          max-width: 60px;
-        }
-        .btn-spin {
-          padding: 12px 28px;
-          font-size: 16px;
-        }
-        .slot-machine {
-          width: calc(100% - 20px);
-          padding: 14px 10px;
-          border-radius: 30px;
-        }
-        .reel {
-          height: 100px;
-          padding: 8px 10px;
-          border-radius: 20px;
-        }
-        .reel-item {
-          min-width: 70px;
-          width: 70px;
-          border-radius: 14px;
-          padding: 6px 4px;
-        }
-        .reel-item .reel-name {
-          font-size: 9px;
-        }
-        .reel-item .reel-price {
-          font-size: 9px;
-          padding: 2px 8px;
-        }
-        .reel-item .reel-volume {
-          font-size: 8px;
-        }
-        .pointer {
-          top: -10px;
-          border-left-width: 10px;
-          border-right-width: 10px;
-          border-top-width: 16px;
-        }
-        .pointer::after {
-          top: -20px;
-          width: 8px;
-          height: 8px;
-        }
-        .pointer-bottom {
-          bottom: -10px;
-          border-left-width: 10px;
-          border-right-width: 10px;
-          border-top-width: 16px;
-        }
-        .modal-content {
-          padding: 20px 16px;
-        }
-        .modal-winner-name {
-          font-size: 17px;
-        }
-        .modal-winner-price {
-          font-size: 17px;
-          padding: 3px 16px;
-        }
-        .modal-winner-volume {
-          font-size: 14px;
-        }
       }
     </style>
   </head>
@@ -853,6 +720,7 @@
 
         let isSpinning = false;
         let spinTimeout = null;
+        let winnerItem = null;
 
         function renderGrid() {
           grid.innerHTML = "";
@@ -860,7 +728,7 @@
             const card = document.createElement("div");
             card.className = "card";
             const shortName =
-              item.name.length > 18 ? item.name.slice(0, 16) + "…" : item.name;
+              item.name.length > 15 ? item.name.slice(0, 13) + "…" : item.name;
             card.innerHTML = `
               <div class="card-name">${shortName}</div>
               <div class="card-price">${item.price}</div>
@@ -870,39 +738,40 @@
         }
         renderGrid();
 
-        function createInfiniteTrack(targetItem) {
-          const itemsPerSet = items.length;
-          const totalItems = [];
-
-          for (let s = 0; s < 3; s++) {
-            for (let i = 0; i < itemsPerSet; i++) {
-              totalItems.push(items[i]);
-            }
-          }
-
-          const insertPosition =
-            totalItems.length - itemsPerSet + Math.floor(itemsPerSet / 2);
-          totalItems.splice(insertPosition, 0, targetItem);
-
-          for (let i = 0; i < 5; i++) {
-            totalItems.push(items[Math.floor(Math.random() * items.length)]);
-          }
-
-          return totalItems;
-        }
-
         function startSlot() {
           if (isSpinning) return;
 
+          // Выбираем случайный элемент, который должен выпасть
           const targetIndex = Math.floor(Math.random() * items.length);
           const picked = items[targetIndex];
-          const trackItems = createInfiniteTrack(picked);
+          winnerItem = null;
 
+          // Создаем трек с элементами
+          const trackItems = [];
+          const itemsPerSet = items.length;
+
+          // Добавляем 2 полных набора
+          for (let s = 0; s < 2; s++) {
+            for (let i = 0; i < itemsPerSet; i++) {
+              trackItems.push(items[i]);
+            }
+          }
+
+          // Вставляем целевой элемент в середину
+          const insertPos = Math.floor(trackItems.length / 2);
+          trackItems.splice(insertPos, 0, picked);
+
+          // Добавляем еще немного элементов после
+          for (let i = 0; i < 4; i++) {
+            trackItems.push(items[Math.floor(Math.random() * items.length)]);
+          }
+
+          // Заполняем трек
           reelTrack.innerHTML = trackItems
             .map(
-              (item) => `
-            <div class="reel-item" data-name="${item.name}">
-              <div class="reel-name">${item.name.length > 14 ? item.name.slice(0, 12) + "…" : item.name}</div>
+              (item, index) => `
+            <div class="reel-item" data-index="${index}" data-name="${item.name}">
+              <div class="reel-name">${item.name.length > 12 ? item.name.slice(0, 10) + "…" : item.name}</div>
               <div class="reel-volume">${item.volume}</div>
               <div class="reel-price">${item.price}</div>
             </div>
@@ -910,47 +779,61 @@
             )
             .join("");
 
+          // Сброс позиции
           reelTrack.style.transition = "none";
           reelTrack.style.transform = "translateX(0px)";
 
+          // Скрываем грид и показываем барабан
           gridWrapper.classList.add("hidden");
           btnContainer.classList.add("hidden");
           slotMachine.classList.add("active");
 
+          // Запускаем прокрутку
           setTimeout(() => {
-            const targetElementIndex = trackItems.findIndex(
-              (item) => item === picked,
-            );
-
+            // Получаем ширину элементов
             const containerWidth = reelContainer.clientWidth;
-            const itemWidth = 120 + 20;
-            const targetPixelPosition = targetElementIndex * itemWidth;
-            const centerOffset = (containerWidth - 120) / 2;
-            let baseShift = targetPixelPosition - centerOffset;
-            const extraSpins = 3 + Math.floor(Math.random() * 3);
-            const totalShift =
-              baseShift + extraSpins * items.length * itemWidth;
-            const maxShift =
-              trackItems.length * itemWidth - containerWidth + 50;
-            const finalShift = Math.min(totalShift, maxShift);
+            const itemWidth = 80 + 12;
+            const totalItems = trackItems.length;
+
+            // Находим индекс целевого элемента
+            const targetIdx = trackItems.findIndex((item) => item === picked);
+
+            // Позиция целевого элемента
+            const targetPos = targetIdx * itemWidth;
+            const centerOffset = (containerWidth - 80) / 2;
+
+            // Смещение
+            let shift = targetPos - centerOffset;
+
+            // Добавляем обороты
+            const extraSpins = 2 + Math.floor(Math.random() * 2);
+            shift += extraSpins * itemsPerSet * itemWidth;
+
+            // Ограничиваем
+            const maxShift = totalItems * itemWidth - containerWidth + 20;
+            const finalShift = Math.min(shift, Math.max(maxShift, 0));
 
             isSpinning = true;
             spinBtn.disabled = true;
 
             reelTrack.style.transition =
-              "transform 5.5s cubic-bezier(0.22, 0.68, 0.35, 1.0)";
+              "transform 4.5s cubic-bezier(0.22, 0.68, 0.35, 1.0)";
             reelTrack.style.transform = `translateX(-${finalShift}px)`;
 
             if (spinTimeout) clearTimeout(spinTimeout);
             spinTimeout = setTimeout(() => {
+              // Находим элемент, который реально оказался по центру
+              const allItems = reelTrack.querySelectorAll(".reel-item");
+
+              // Получаем позицию центра контейнера
               const containerRect = reelContainer.getBoundingClientRect();
               const centerX = containerRect.left + containerRect.width / 2;
 
-              const allItems = reelTrack.querySelectorAll(".reel-item");
               let closestElement = null;
               let closestDistance = Infinity;
 
-              allItems.forEach((el) => {
+              // Ищем элемент, ближайший к центру
+              for (let el of allItems) {
                 const elRect = el.getBoundingClientRect();
                 const elCenterX = elRect.left + elRect.width / 2;
                 const distance = Math.abs(elCenterX - centerX);
@@ -959,62 +842,51 @@
                   closestDistance = distance;
                   closestElement = el;
                 }
-              });
+              }
 
+              // Получаем данные победителя
               if (closestElement) {
-                closestElement.classList.add("winner");
-                closestElement.scrollIntoView({
-                  behavior: "smooth",
-                  inline: "center",
-                  block: "nearest",
-                });
-
                 const nameEl = closestElement.querySelector(".reel-name");
                 const volumeEl = closestElement.querySelector(".reel-volume");
                 const priceEl = closestElement.querySelector(".reel-price");
 
-                if (nameEl && volumeEl && priceEl) {
-                  const winnerName = nameEl.textContent || "";
-                  let foundItem = null;
-                  for (let item of items) {
-                    const shortName =
-                      item.name.length > 14
-                        ? item.name.slice(0, 12) + "…"
-                        : item.name;
-                    if (
-                      shortName === winnerName ||
-                      item.name.includes(winnerName.replace("…", ""))
-                    ) {
-                      foundItem = item;
-                      break;
-                    }
-                  }
+                // Сохраняем победителя
+                winnerItem = {
+                  name: nameEl ? nameEl.textContent : "Неизвестно",
+                  volume: volumeEl ? volumeEl.textContent : "",
+                  price: priceEl ? priceEl.textContent : "",
+                };
 
+                // Пытаемся найти полный объект в items
+                const dataName = closestElement.getAttribute("data-name");
+                if (dataName) {
+                  const foundItem = items.find(
+                    (item) => item.name === dataName,
+                  );
                   if (foundItem) {
-                    showModal(foundItem);
-                  } else {
-                    showModal({
-                      name: winnerName,
-                      volume: volumeEl.textContent,
-                      price: priceEl.textContent,
-                    });
+                    winnerItem = foundItem;
                   }
-                } else {
-                  showModal(picked);
                 }
+
+                closestElement.classList.add("winner");
               } else {
-                showModal(picked);
+                // Если ничего не нашли, используем picked
+                winnerItem = picked;
               }
 
-              isSpinning = false;
-              spinBtn.disabled = false;
+              setTimeout(() => {
+                showModal(winnerItem);
+                isSpinning = false;
+                spinBtn.disabled = false;
+              }, 400);
+
               spinTimeout = null;
-            }, 5800);
-          }, 1500);
+            }, 4800);
+          }, 600);
         }
 
         function showModal(item) {
-          modalName.textContent = item.name || item;
+          modalName.textContent = item.name || "Неизвестно";
           modalVolume.textContent = item.volume || "";
           modalPrice.textContent = item.price || "";
           modalOverlay.classList.add("open");
