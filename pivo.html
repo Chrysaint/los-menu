@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Пивная рулетка CS2</title>
+    <title>Рандомайзер пивка</title>
     <style>
       /* ===== Сброс и темная база ===== */
       *,
@@ -741,7 +741,7 @@
         function startSlot() {
           if (isSpinning) return;
 
-          // Выбираем случайный элемент, который должен выпасть
+          // Выбираем случайный элемент
           const targetIndex = Math.floor(Math.random() * items.length);
           const picked = items[targetIndex];
           winnerItem = null;
@@ -750,27 +750,32 @@
           const trackItems = [];
           const itemsPerSet = items.length;
 
-          // Добавляем 2 полных набора
-          for (let s = 0; s < 2; s++) {
+          // Добавляем 3 полных набора для большего эффекта
+          for (let s = 0; s < 3; s++) {
             for (let i = 0; i < itemsPerSet; i++) {
               trackItems.push(items[i]);
             }
           }
 
-          // Вставляем целевой элемент в середину
+          // Вставляем целевой элемент в середину с уникальным ID
           const insertPos = Math.floor(trackItems.length / 2);
-          trackItems.splice(insertPos, 0, picked);
+          const targetWithId = { ...picked, _id: Date.now() + Math.random() };
+          trackItems.splice(insertPos, 0, targetWithId);
 
           // Добавляем еще немного элементов после
-          for (let i = 0; i < 4; i++) {
-            trackItems.push(items[Math.floor(Math.random() * items.length)]);
+          for (let i = 0; i < 6; i++) {
+            const randomItem = items[Math.floor(Math.random() * items.length)];
+            trackItems.push({
+              ...randomItem,
+              _id: Date.now() + Math.random() + i,
+            });
           }
 
           // Заполняем трек
           reelTrack.innerHTML = trackItems
             .map(
               (item, index) => `
-            <div class="reel-item" data-index="${index}" data-name="${item.name}">
+            <div class="reel-item" data-index="${index}" data-name="${item.name}" data-id="${item._id || ""}">
               <div class="reel-name">${item.name.length > 12 ? item.name.slice(0, 10) + "…" : item.name}</div>
               <div class="reel-volume">${item.volume}</div>
               <div class="reel-price">${item.price}</div>
@@ -790,13 +795,25 @@
 
           // Запускаем прокрутку
           setTimeout(() => {
-            // Получаем ширину элементов
             const containerWidth = reelContainer.clientWidth;
             const itemWidth = 80 + 12;
             const totalItems = trackItems.length;
 
-            // Находим индекс целевого элемента
-            const targetIdx = trackItems.findIndex((item) => item === picked);
+            // Находим индекс целевого элемента по _id
+            let targetIdx = -1;
+            for (let i = 0; i < trackItems.length; i++) {
+              if (trackItems[i]._id === targetWithId._id) {
+                targetIdx = i;
+                break;
+              }
+            }
+
+            if (targetIdx === -1) {
+              // Fallback - ищем по имени
+              targetIdx = trackItems.findIndex(
+                (item) => item.name === picked.name,
+              );
+            }
 
             // Позиция целевого элемента
             const targetPos = targetIdx * itemWidth;
@@ -805,8 +822,8 @@
             // Смещение
             let shift = targetPos - centerOffset;
 
-            // Добавляем обороты
-            const extraSpins = 2 + Math.floor(Math.random() * 2);
+            // Добавляем случайное количество оборотов (от 2 до 4)
+            const extraSpins = 2 + Math.floor(Math.random() * 3);
             shift += extraSpins * itemsPerSet * itemWidth;
 
             // Ограничиваем
