@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuData = {
     salads: [
       { name: "Цезарь", img: "salad-caesar.png" },
+      { name: "Кавказский", img: "empty.png" },
       { name: "Студенческий", img: "salad-student.png" },
       { name: "Салат капуста с огурцом", img: "salad-cabbage-cucumber.png" },
       { name: "Салат гнездо глухаря", img: "salad-grouse-nest.png" },
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     first: [
       { name: "Суп с фрикадельками", img: "soup-meatball.png" },
       { name: "Суп грибной классический", img: "soup-mushroom-classic.png" },
+      { name: "Суп куриный домашний", img: "empty.png" },
       { name: "Бульон куриный с лапшой", img: "soup-chicken-noodle-broth.png" },
       { name: "Суп гуляш венгерский", img: "soup-hungarian-goulash.png" },
       { name: "Сырный суп", img: "soup-cheese.png" },
