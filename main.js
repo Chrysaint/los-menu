@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "Цезарь", img: "salad-caesar.png" },
       { name: "Кавказский", img: "empty.png" },
       { name: "Студенческий", img: "salad-student.png" },
+      { name: "Салат из крабовых палочек", img: "empty.png" },
       { name: "Салат из свежих овощей", img: "empty.png" },
       { name: "Салат капуста с огурцом", img: "salad-cabbage-cucumber.png" },
       { name: "Салат гнездо глухаря", img: "salad-grouse-nest.png" },
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "Суп итальянский", img: "soup-italian.png" },
       { name: "Суп гороховый", img: "soup-pea.png" },
       { name: "Солянка", img: "soup-solyanka.png" },
+      { name: "Уха", img: "empty.png" },
     ],
     second: [
       {
@@ -79,6 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
         img: "main-buckwheat-merchant-chicken.png",
       },
       { name: "Плов с курицей", img: "main-chicken-pilaf.png" },
+      { name: "Треска с пюре", img: "empty.png" },
+      { name: "Котлета с макаронами", img: "empty.png" }
     ],
   };
 
